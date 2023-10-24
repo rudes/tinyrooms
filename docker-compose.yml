@@ -4,6 +4,12 @@ services:
   build: .
   restart: always
   volumes:
-   - '/var/log:/var/log'
+   - '/var/log/discord:/var/log/discord'
   environment:
    - DISCORD_BOTKEY=${DISCORD_BOTKEY}
+   - DEBUG_GUILD_ID=${DEBUG_GUILD_ID}
+ db:
+  image: redis:7.2.1-alpine
+  restart: always
+  volumes:
+   - '/var/opt/tinyrooms:/data'

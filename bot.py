@@ -1,21 +1,25 @@
 import os
-import discord
 import logging
+import discord
 
-from handlers import *
 from discord.ext import commands
 
-logging.basicConfig(format="%(asctime)s %(name)s:%(levelname)-8s %(message)s",
-                    filename="/var/log/tinyrooms.log", level=logging.INFO)
+logging.basicConfig(
+    format="%(asctime)s %(name)s:%(levelname)-8s %(message)s",
+    filename="/var/log/discord/tinyrooms.log",
+    level=logging.INFO,
+)
+
 log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)
-discord_log = logging.getLogger('discord')
+
+discord_log = logging.getLogger("discord")
 discord_log.setLevel(logging.ERROR)
 
-def main():
-    bot = commands.Bot(intents=discord.Intents.all())
-    bot.add_cog(tinyrooms.TinyRooms(bot))
-    bot.run(str(os.environ['DISCORD_BOTKEY']))
+bot = commands.Bot(
+    intents=discord.Intents.all(),
+    debug_guilds=[int(os.environ["DEBUG_GUILD_ID"])],
+)
 
-if __name__ == "__main__":
-    main()
+bot.load_extensions("cogs")
+bot.run(str(os.environ["DISCORD_BOTKEY"]))
