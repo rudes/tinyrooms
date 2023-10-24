@@ -16,7 +16,7 @@ class JoinGuild(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
         try:
-            if bot.auto_sync_commands:
+            if self.bot.auto_sync_commands:
                 await self.bot.sync_commands()
             await self.config.setup_request(guild)
         except Exception as e:
