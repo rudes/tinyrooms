@@ -16,10 +16,7 @@ log.setLevel(logging.INFO)
 discord_log = logging.getLogger("discord")
 discord_log.setLevel(logging.ERROR)
 
-bot = commands.Bot(
-    intents=discord.Intents.all(),
-    debug_guilds=[int(os.environ["DEBUG_GUILD_ID"])],
-)
+bot = commands.Bot(intents=discord.Intents.all())
 
 bot.load_extensions("cogs")
 bot.run(str(os.environ["DISCORD_BOTKEY"]))
